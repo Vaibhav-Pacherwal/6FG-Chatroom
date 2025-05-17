@@ -17,7 +17,7 @@
 ## 🛠️ Tech Stack
 
 - **Backend:** Node.js, Express.js
-- **Database:** SQL (e.g., MySQL/PostgreSQL/SQLite – update if needed)
+- **Database:** MySQL
 - **Real-time:** Socket.IO
 - **Authentication:** Brevo Email OTP
 - **Templating Engine:** EJS
