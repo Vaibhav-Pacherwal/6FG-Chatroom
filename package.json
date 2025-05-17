@@ -1,0 +1,23 @@
+{
+  "name": "chatroom",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Vaibhav Pacherwal",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "dotenv": "^16.5.0",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "express-session": "^1.18.1",
+    "method-override": "^3.0.0",
+    "mysql2": "^3.14.1",
+    "nodemailer": "^7.0.3",
+    "socket.io": "^4.8.1",
+    "twilio": "^5.6.1",
+    "uuid": "^11.1.0"
+  }
+}

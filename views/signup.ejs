@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>6 Feet Gang | SignUp</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Roboto+Slab:wght@100..900&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Amatic SC", sans-serif;
+      background: linear-gradient(to right, #fce4ec, #fff0f5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 1rem;
+    }
+
+    .auth-buttons {
+      background: rgba(255, 240, 245, 0.8);
+      border: 1px solid #e8c5d0;
+      border-radius: 20px;
+      padding: 2rem;
+      box-shadow: 0 8px 32px rgba(140, 80, 100, 0.2);
+      backdrop-filter: blur(12px);
+      text-align: center;
+      width: 100%;
+      max-width: 400px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    form {
+      width: 100%;
+    }
+
+    h1 {
+      margin-bottom: 1.5rem;
+      color: #8e3a59;
+      font-size: 2.5rem;
+    }
+
+    label {
+      font-weight: 600;
+      display: block;
+      margin: 0.75rem 0 0.25rem;
+      color: #775c5c;
+    }
+
+    input {
+      border: 1px solid #e8c5d0;
+      font-family: "Amatic SC", sans-serif;
+      border-radius: 10px;
+      text-align: center;
+      height: 35px;
+      width: 100%;
+      padding: 0.2rem 0.5rem;
+      font-size: 1rem;
+    }
+
+    input::placeholder {
+      text-align: center;
+    }
+
+    button {
+      background-color: #ec407a;
+      color: white;
+      border: none;
+      padding: 0.75rem 2rem;
+      border-radius: 30px;
+      font-size: 1.2rem;
+      margin-top: 1.5rem;
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+      font-family: "Amatic SC", sans-serif;
+      width: 100%;
+    }
+
+    button:hover {
+      background-color: #8e3a59;
+      transform: scale(1.05);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    @media (max-width: 480px) {
+      .auth-buttons {
+        padding: 1.5rem;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      button {
+        font-size: 1rem;
+        padding: 0.6rem 1.5rem;
+      }
+
+      input {
+        font-size: 0.95rem;
+      }
+    }
+
+    a {
+        text-decoration: none;
+        color: #8e3a59;
+        position: fixed;
+        top: 2%;
+        left: 5%;
+        z-index: 10;
+        font-size: 1.5rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="auth-buttons">
+    <h1>6 Feet Gang</h1>
+    <form action="/user" method="post">
+      <label for="username">Enter Your Name</label>
+      <input type="text" id="username" name="user" placeholder="John Doe" required/>
+
+      <label for="email">Enter Your Email</label>
+      <input type="email" id="email" name="email" placeholder="example@email.com" required/>
+
+      <label for="num">Enter Your Mobile Number</label>
+      <input type="tel" id="num" name="number" placeholder="+91XXXXXXXXXX" required/>
+
+      <label for="password">Create Password</label>
+      <input type="password" id="password" name="password" placeholder="********" required/>
+
+      <label for="confPass">Confirm Password</label>
+      <input type="password" id="confPass" name="confpass" placeholder="********" required/>
+
+      <button type="submit">Sign Up</button>
+      <a href="/">←</a>
+    </form>
+
+  </div>
+
+  <script>
+        let form = document.querySelector('form');
+        form.addEventListener('submit', function(e) {
+            let password = document.getElementById("password").value;
+            let confirmPassword = document.getElementById("confPass").value;
+
+            if(password !== confirmPassword) {
+                e.preventDefault();
+                alert("Password do not match!");
+            }
+        })
+    </script>
+</body>
+</html>
