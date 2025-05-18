@@ -13,7 +13,7 @@ services:
       - DB_USER=root
       - DB_PASSWORD=flamekaiser
       - DB_NAME=chatroom
-      - BREVO_API_KEY=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
+      - BREVO_API_KEY=${BREVO_API_KEY}
 
   db:
     image: mysql:8
