@@ -33,17 +33,20 @@ server.listen(port, ()=>{
     console.log(`server is running on http://localhost:${port}`);
 });
 
-const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    database: 'chatroom',
-    password: 'flamekaiser'
+const pool = mysql.createPool({
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0
 });
 
 io.on('connection', (socket) => {
     socket.on('chat message', (msg) => {
     const q = `INSERT INTO message (msgSender, message) VALUES (?, ?)`;
-    connection.query(q, [msg.sender, msg.content], (err, result) => {
+    pool.query(q, [msg.sender, msg.content], (err, result) => {
         if (err) {
             console.error("Error inserting message:", err);
         } else {
@@ -60,7 +63,7 @@ io.on('connection', (socket) => {
     });
 });
 
-connection.connect((err)=>{
+pool.connect((err)=>{
     if(err) {
         console.log(`connection to DB failed: ${err}`);
     } else {
@@ -118,7 +121,7 @@ app.post('/user', (req, res)=>{
     let userDetails = [id, user, email, number, password];
     let q = `INSERT INTO user_details (id, name, email, mobile_number, password) VALUES (?, ?, ?, ?, ?)`;
     try {
-        connection.query(q, userDetails, (err, result)=>{
+        pool.query(q, userDetails, (err, result)=>{
             if(err) throw err;
             console.log(result);
             res.redirect('/');
@@ -136,7 +139,7 @@ app.post('/user/log', (req, res)=>{
     let {user, password} = req.body;
     q = `SELECT * FROM user_details WHERE name = '${user}'`;
     try {
-        connection.query(q, (err, result)=>{
+        pool.query(q, (err, result)=>{
             if(err) throw err;
             if(result.length === 0) {
                 return res.send(`Oops! user not found!!`);
@@ -146,7 +149,7 @@ app.post('/user/log', (req, res)=>{
             } else {
                 let user = result[0]
                 let q1 = `SELECT * FROM message`;
-                connection.query(q1, (err, messages)=>{
+                pool.query(q1, (err, messages)=>{
                     if(err) throw err;
                     res.render('chatroom', {user, messages});
                 })
@@ -168,7 +171,7 @@ app.post('/sent-otp', (req, res) => {
     console.log(email);
     q = `SELECT * FROM user_details WHERE email = '${email}'`;
     try {
-        connection.query(q, async (err, result)=>{
+        pool.query(q, async (err, result)=>{
             if(err) throw err;
             if(result.length === 0) {
                 res.send("user does not exist!!");
@@ -193,11 +196,11 @@ app.post('/verified-user', (req, res)=>{
     if(storedOtp === enteredOtp) {
         let q = `SELECT * FROM user_details WHERE name = '${username}'`;
         try {
-            connection.query(q, (err, result)=>{
+            pool.query(q, (err, result)=>{
                 if(err) throw err;
                 let user = result[0];
                 let q1 = `SELECT * FROM message`;
-                connection.query(q1, (err, messages)=>{
+                pool.query(q1, (err, messages)=>{
                     if(err) throw err;
                     res.render('chatroom', {user, messages});
                 });
