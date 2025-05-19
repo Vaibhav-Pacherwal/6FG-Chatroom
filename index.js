@@ -28,7 +28,7 @@ app.use(session({
     }
 }));
 
-const port = 8080;
+const port = process.env.PORT || 8080;
 server.listen(port, ()=>{
     console.log(`server is running on http://localhost:${port}`);
 });
@@ -61,14 +61,6 @@ io.on('connection', (socket) => {
     socket.on('disconnect', () => {
         console.log('A user disconnected');
     });
-});
-
-pool.connect((err)=>{
-    if(err) {
-        console.log(`connection to DB failed: ${err}`);
-    } else {
-        console.log(`connected to MySQL database✅`);
-    }
 });
 
 const transporter = nodemailer.createTransport({
